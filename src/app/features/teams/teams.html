@@ -1,0 +1,14 @@
+<div class="teams-container">
+  <h2>Acompanhe os Times</h2>
+  <div nz-row [nzGutter]="[16, 16]" *ngIf="teams.length > 0; else noData">
+    <div nz-col [nzXs]="12" [nzSm]="8" [nzMd]="6" [nzLg]="4" *ngFor="let team of teams">
+      <nz-card nzHoverable class="team-card">
+        <img [src]="team.logoUrl || 'assets/fallback.png'" [alt]="team.name" class="team-logo">
+        <p class="team-name">{{ team.name }}</p>
+      </nz-card>
+    </div>
+  </div>
+  <ng-template #noData>
+    <nz-empty nzNotFoundContent="Nenhum time encontrado."></nz-empty>
+  </ng-template>
+</div>
