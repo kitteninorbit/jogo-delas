@@ -24,7 +24,9 @@ export class Teams implements OnInit {
 
   ngOnInit() {
     this.teamService.getTeams().subscribe({
-      next: (data) => this.teams = data,
+      next: (data) => {
+        this.teams = data.sort((a, b) => a.name.localeCompare(b.name));
+      },
       error: (err) => console.error('Error fetching teams:', err)
     });
   }
