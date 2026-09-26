@@ -28,4 +28,10 @@ export class Teams implements OnInit {
       error: (err) => console.error('Error fetching teams:', err)
     });
   }
+
+  goToInstagram(url?: string) {
+    if (url) {
+      window.open(url, '_blank');
+    }
+  }
 }

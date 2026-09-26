@@ -2,7 +2,12 @@
   <h2>{{ 'teams.title' | translate }}</h2>
   <div nz-row [nzGutter]="[16, 16]" *ngIf="teams.length > 0; else noData">
     <div nz-col [nzXs]="12" [nzSm]="8" [nzMd]="6" [nzLg]="4" *ngFor="let team of teams">
-      <nz-card nzHoverable class="team-card">
+      <nz-card
+        nzHoverable
+        class="team-card"
+        [class.clickable]="team.instagramUrl"
+        (click)="goToInstagram(team.instagramUrl)"
+      >
         <img [src]="team.logoUrl || 'assets/fallback.png'" [alt]="team.name" class="team-logo">
         <p class="team-name">{{ team.name }}</p>
       </nz-card>

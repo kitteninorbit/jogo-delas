@@ -7,6 +7,7 @@ export interface Team {
   id: number;
   name: string;
   logoUrl: string;
+  instagramUrl?: string;
 }
 
 export interface Broadcast {
