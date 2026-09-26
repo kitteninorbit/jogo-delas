@@ -11,7 +11,10 @@ import { provideNzIcons } from 'ng-zorro-antd/icon';
 import {
   MenuOutline,
   LinkedinOutline,
-  GithubOutline
+  GithubOutline,
+  SunOutline,
+  MoonOutline,
+  GlobalOutline
 } from '@ant-design/icons-angular/icons';
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
@@ -26,7 +29,14 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideNzI18n(pt_BR),
     provideNzDateFnsAdapter(),
-    provideNzIcons([MenuOutline, LinkedinOutline, GithubOutline]),
+    provideNzIcons([
+      MenuOutline,
+      LinkedinOutline,
+      GithubOutline,
+      SunOutline,
+      MoonOutline,
+      GlobalOutline
+    ]),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: '/i18n/',

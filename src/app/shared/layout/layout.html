@@ -3,31 +3,49 @@
   <nz-header class="header" role="banner">
     <div class="logo">
       <a routerLink="/matches" class="logo-link">
-        <img src="assets/futfem.png" alt="JogoDelas Logo" class="jogo-delas-logo"/>
+        <img src="assets/futfem.png" [alt]="'layout.logoAlt' | translate" class="jogo-delas-logo"/>
         <span class="jogo-delas-title">JogoDelas</span>
       </a>
     </div>
 
-    <nav class="nav" aria-label="Navegação Principal">
+    <nav class="nav" [attr.aria-label]="'layout.mainNavAria' | translate">
       <ul nz-menu nzTheme="light" nzMode="horizontal" class="header-nav">
         <li nz-menu-item nzMatchRouter>
-          <a routerLink="/competitions">Competições</a>
+          <a routerLink="/competitions">{{ 'layout.navCompetitions' | translate }}</a>
         </li>
         <li nz-menu-item nzMatchRouter>
-          <a routerLink="/matches">Jogos</a>
+          <a routerLink="/matches">{{ 'layout.navMatches' | translate }}</a>
         </li>
         <li nz-menu-item nzMatchRouter>
-          <a routerLink="/teams">Times</a>
+          <a routerLink="/teams">{{ 'layout.navTeams' | translate }}</a>
         </li>
       </ul>
     </nav>
 
     <div class="header-actions">
+      <nz-switch
+        class="theme-switch"
+        nz-tooltip
+        [nzTooltipTitle]="themeService.isDark() ? ('layout.switchToLightTheme' | translate) : ('layout.switchToDarkTheme' | translate)"
+        [attr.aria-label]="'layout.themeToggle' | translate"
+        [nzCheckedChildren]="moonTemplate"
+        [nzUnCheckedChildren]="sunTemplate"
+        [ngModel]="themeService.isDark()"
+        (ngModelChange)="setTheme($event)"
+      >
+        <ng-template #sunTemplate>
+          <nz-icon nzType="sun" nzTheme="outline" aria-hidden="true"></nz-icon>
+        </ng-template>
+        <ng-template #moonTemplate>
+          <nz-icon nzType="moon" nzTheme="outline" aria-hidden="true"></nz-icon>
+        </ng-template>
+      </nz-switch>
+
       <button
         type="button"
         class="nav-toggle"
         (click)="toggleMobileNav()"
-        aria-label="Abrir menu mobile"
+        [attr.aria-label]="'layout.mobileNavAria' | translate"
       >
         <nz-icon [nzType]="mobileNavOpen() ? 'close' : 'menu'" nzTheme="outline" />
       </button>
@@ -39,9 +57,9 @@
     <div class="mobile-nav-overlay" (click)="closeMobileNav()"></div>
     <div class="mobile-nav">
       <ul nz-menu nzTheme="light" nzMode="vertical" (click)="closeMobileNav()" class="mobile-nav-menu">
-        <li nz-menu-item nzMatchRouter><a routerLink="/competicoes">Competições</a></li>
-        <li nz-menu-item nzMatchRouter><a routerLink="/jogos">Jogos</a></li>
-        <li nz-menu-item nzMatchRouter><a routerLink="/times">Times</a></li>
+        <li nz-menu-item nzMatchRouter><a routerLink="/competitions">{{ 'layout.navCompetitions' | translate }}</a></li>
+        <li nz-menu-item nzMatchRouter><a routerLink="/matches">{{ 'layout.navMatches' | translate }}</a></li>
+        <li nz-menu-item nzMatchRouter><a routerLink="/teams">{{ 'layout.navTeams' | translate }}</a></li>
       </ul>
     </div>
   }
@@ -56,16 +74,43 @@
   <!-- Footer -->
   <nz-footer class="footer-wrapper" role="contentinfo">
     <div class="footer-content">
-      <p>&copy; 2026 Jogo Delas. Todos os direitos reservados.</p>
+      <p>{{ 'layout.footerRights' | translate }}</p>
       <div class="social-links">
         <a href="https://github.com/valdezhq" target="_blank" rel="noopener noreferrer">
-          <nz-icon nzType="github" nzTheme="outline"></nz-icon> GitHub
+          <nz-icon nzType="github" nzTheme="outline"></nz-icon> {{ 'layout.footerGithub' | translate }}
         </a>
         <nz-divider nzType="vertical"></nz-divider>
         <a href="https://linkedin.com/in/luna-valdez" target="_blank" rel="noopener noreferrer">
-          <nz-icon nzType="linkedin" nzTheme="outline"></nz-icon> LinkedIn
+          <nz-icon nzType="linkedin" nzTheme="outline"></nz-icon> {{ 'layout.footerLinkedin' | translate }}
         </a>
       </div>
     </div>
   </nz-footer>
+
+  <!-- Language Switcher -->
+  <button
+    type="button"
+    nz-button
+    nzShape="circle"
+    class="lang-switch-btn"
+    nz-dropdown
+    [nzDropdownMenu]="langMenu"
+    nzTrigger="click"
+    nzPlacement="topLeft"
+    [attr.aria-label]="'layout.langAlt' | translate"
+  >
+    <nz-icon
+      aria-hidden="true"
+      nzType="global"
+      nzTheme="outline"
+      nz-tooltip
+      [nzTooltipTitle]="'layout.changeLanguage' | translate"
+    />
+  </button>
+  <nz-dropdown-menu #langMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="switchLang('pt')">Português</li>
+      <li nz-menu-item (click)="switchLang('es')">Español</li>
+    </ul>
+  </nz-dropdown-menu>
 </nz-layout>

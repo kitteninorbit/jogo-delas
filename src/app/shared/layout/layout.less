@@ -6,7 +6,7 @@
 
 nz-content {
   flex: 1 0 auto;
-  background-color: #f5f5f5;
+  background-color: var(--jogodelas-bg);
 }
 
 .content {
@@ -17,15 +17,21 @@ nz-content {
 
 /* Header */
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #ffffff;
-  padding: 0 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: var(--jogodelas-surface);
+  padding: 0 40px;
+  box-shadow: 0 2px 8px var(--jogodelas-header-shadow-color);
+}
+
+.logo {
+  display: flex;
+  align-items: left;
+  gap: 10px;
 }
 
 .logo-link {
@@ -38,7 +44,7 @@ nz-content {
 .jogo-delas-title {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #333;
+  color: var(--jogodelas-text-primary);
 }
 
 .jogo-delas-logo {
@@ -48,14 +54,24 @@ nz-content {
 }
 
 .nav {
-  flex: 1;
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 .header-nav {
   border-bottom: none;
   line-height: 64px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-switch {
+  display: flex;
+  align-items: center;
 }
 
 .nav-toggle {
@@ -68,14 +84,14 @@ nz-content {
   background: transparent;
   font-size: 22px;
   cursor: pointer;
-  color: #333;
+  color: var(--jogodelas-text-primary);
 }
 
 /* Mobile Nav */
 .mobile-nav-overlay {
   position: fixed;
   inset: 64px 0 0 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--jogodelas-overlay);
   z-index: 999;
 }
 
@@ -84,8 +100,8 @@ nz-content {
   top: 64px;
   left: 0;
   right: 0;
-  background: #ffffff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background: var(--jogodelas-surface);
+  box-shadow: 0 8px 16px var(--jogodelas-float-shadow-color);
   z-index: 1000;
   padding: 8px 16px 20px;
 }
@@ -96,9 +112,9 @@ nz-content {
 
 /* Footer */
 .footer-wrapper {
-  background-color: #ffffff;
+  background-color: var(--jogodelas-surface);
   padding: 24px 0;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid var(--jogodelas-border);
 }
 
 .footer-content {
@@ -108,7 +124,7 @@ nz-content {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: #666;
+  color: var(--jogodelas-text-secondary);
 }
 
 .footer-content p {
@@ -116,20 +132,41 @@ nz-content {
 }
 
 .social-links a {
-  color: #666;
+  color: var(--jogodelas-text-secondary);
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s;
 }
 
 .social-links a:hover {
-  color: #1890ff;
+  color: var(--jogodelas-primary-color-hover);
+}
+
+/* Language switch */
+.lang-switch-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--jogodelas-float-shadow-color);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .header {
     padding: 0 16px;
+    justify-content: space-between;
+  }
+  .header-center {
+    position: static;
+    left: auto;
+    transform: none;
   }
   .nav {
     display: none;
