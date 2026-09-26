@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+
+@import 'ng-zorro-antd/ng-zorro-antd.less';
+@primary-color: #f32b98;
+
+:root {
+  --jogodelas-primary-color: @primary-color;
+  --jogodelas-primary-color-hover: @primary-color-hover;
+  --jogodelas-primary-color-active: @primary-color-active;
+  --jogodelas-primary-white: #ffffff;
+  --jogodelas-bg: #f5f5f5;
+  --jogodelas-surface: #ffffff;
+  --jogodelas-text-primary: #333333;
+  --jogodelas-text-secondary: #666666;
+  --jogodelas-text-tertiary: #999999;
+  --jogodelas-border: #eaeaea;
+  --jogodelas-header-shadow-color: rgba(0, 0, 0, 0.05);
+  --jogodelas-float-shadow-color: rgba(0, 0, 0, 0.1);
+  --jogodelas-overlay: rgba(0, 0, 0, 0.4);
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--jogodelas-bg);
+  color: var(--jogodelas-text-primary);
+}

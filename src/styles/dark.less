@@ -1,0 +1,26 @@
+/* Dark mode styles */
+
+@import 'ng-zorro-antd/ng-zorro-antd.dark.less';
+@primary-color: #f32b98;
+
+:root {
+  --jogodelas-primary-color: @primary-color;
+  --jogodelas-primary-color-hover: @primary-color-hover;
+  --jogodelas-primary-color-active: @primary-color-active;
+  --jogodelas-primary-white: #ffffff;
+  --jogodelas-bg: #121212;
+  --jogodelas-surface: #1e1e1e;
+  --jogodelas-text-primary: #f0f0f0;
+  --jogodelas-text-secondary: #b3b3b3;
+  --jogodelas-text-tertiary: #888888;
+  --jogodelas-border: #2e2e2e;
+  --jogodelas-header-shadow-color: rgba(0, 0, 0, 0.4);
+  --jogodelas-float-shadow-color: rgba(0, 0, 0, 0.6);
+  --jogodelas-overlay: rgba(0, 0, 0, 0.6);
+}
+
+html,
+body {
+  background-color: var(--jogodelas-bg);
+  color: var(--jogodelas-text-primary);
+}
