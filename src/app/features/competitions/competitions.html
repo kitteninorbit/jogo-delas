@@ -1,0 +1,14 @@
+<div class="competitions-container">
+  <h2>Torneios e Competições</h2>
+  <div nz-row [nzGutter]="[16, 16]" *ngIf="competitions.length > 0; else noData">
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" *ngFor="let comp of competitions">
+      <nz-card nzHoverable class="competition-card">
+        <h3>🏆 {{ comp.name }}</h3>
+        <p>Acompanhe os jogos e transmissões desta competição na aba de Jogos.</p>
+      </nz-card>
+    </div>
+  </div>
+  <ng-template #noData>
+    <nz-empty nzNotFoundContent="Nenhuma competição encontrada."></nz-empty>
+  </ng-template>
+</div>
