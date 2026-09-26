@@ -3,7 +3,11 @@
   <nz-header class="header" role="banner">
     <div class="logo">
       <a routerLink="/matches" class="logo-link">
-        <img src="assets/futfem.png" [alt]="'layout.logoAlt' | translate" class="jogo-delas-logo"/>
+        <img
+          [src]="themeService.isDark() ? 'assets/futfem-d.png' : 'assets/futfem-bg.png'"
+          [alt]="'layout.logoAlt' | translate"
+          class="jogo-delas-logo"
+        />
         <span class="jogo-delas-title">JogoDelas</span>
       </a>
     </div>
