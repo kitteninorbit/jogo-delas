@@ -1,52 +1,51 @@
-import { Component, signal, inject, PLATFORM_ID } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { ViewportScroller, DatePipe, isPlatformBrowser, CommonModule } from '@angular/common';
-import { MatchService } from '../../core/match';
-import { Match } from '../../core/models';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatchService } from '../../core/match.service';
+import { CompetitionService } from '../../core/competition.service';
+import { Match, Competition } from '../../core/models';
+import { FormsModule } from '@angular/forms';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({
-  selector: 'matches-root',
+  selector: 'app-matches',
   imports: [
-      CommonModule,
-      NzCardModule,
-      NzGridModule,
-      NzTagModule,
-      NzTypographyModule,
-      NzDividerModule,
-      NzEmptyModule
-    ],
+    CommonModule, FormsModule, NzCardModule, NzGridModule,
+    NzTagModule, NzDividerModule, NzEmptyModule, NzSelectModule
+  ],
   templateUrl: './matches.html',
   styleUrl: './matches.less'
 })
-export class Matches {
-  protected readonly title = signal('jogo-delas');
-  private translate = inject(TranslateService);
-  private viewport = inject(ViewportScroller);
-  private platformId = inject(PLATFORM_ID);
-  matches: Match[] = [];
-    matchService = inject(MatchService)
+export class Matches implements OnInit {
+  allMatches: Match[] = [];
+  displayedMatches: Match[] = [];
+  competitions: Competition[] = [];
+  selectedCompetitionId: number | 'ALL' = 'ALL';
+
+  private matchService = inject(MatchService);
+  private competitionService = inject(CompetitionService);
 
   ngOnInit() {
-    let initialLang = 'pt';
-    if (isPlatformBrowser(this.platformId)) {
-      initialLang = localStorage.getItem('lang') || 'pt';
-    }
-    this.translate.use(initialLang);
-    this.viewport.scrollToPosition([0, 0]);
+    this.competitionService.getCompetitions().subscribe(data => this.competitions = data);
+
     this.matchService.getMatches().subscribe({
       next: (data) => {
-        this.matches = data;
+        this.allMatches = data;
+        this.displayedMatches = data;
       },
-      error: (err) => {
-        console.error('Erro ao buscar jogos:', err);
-      }
+      error: (err) => console.error('Error fetching matches:', err)
     });
+  }
+
+  filterMatches() {
+    if (this.selectedCompetitionId === 'ALL') {
+      this.displayedMatches = this.allMatches;
+    } else {
+      this.displayedMatches = this.allMatches.filter(m => m.competition.id === this.selectedCompetitionId);
+    }
   }
 }

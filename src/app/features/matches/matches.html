@@ -1,55 +1,56 @@
-<div class="container">
-  <h1 nz-typography>Onde Passa Futebol Feminino</h1>
-  <p nz-typography>Acompanhe os jogos e transmissões da Libertadores Feminina 2026</p>
+<div class="matches-container">
+  <div class="filter-header">
+    <h2>Jogos e Transmissões</h2>
+    <nz-select
+      [(ngModel)]="selectedCompetitionId"
+      (ngModelChange)="filterMatches()"
+      class="competition-filter">
+      <nz-option nzValue="ALL" nzLabel="Todas as Competições"></nz-option>
+      <nz-option *ngFor="let comp of competitions" [nzValue]="comp.id" [nzLabel]="comp.name"></nz-option>
+    </nz-select>
+  </div>
+
   <nz-divider></nz-divider>
 
-  <!-- Responsive Grid -->
-  <div nz-row [nzGutter]="[16, 16]" *ngIf="matches.length > 0; else noData">
-    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="8" *ngFor="let match of matches">
-
-      <!-- Match Card -->
+  <div nz-row [nzGutter]="[16, 16]" *ngIf="displayedMatches.length > 0; else noData">
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" *ngFor="let match of displayedMatches">
       <nz-card [nzTitle]="cardTitle" nzHoverable>
         <ng-template #cardTitle>
           <div class="card-header">
+            <strong>{{ match.competition.name }}</strong>
             <span>{{ match.stage }}</span>
             <small>{{ match.matchDatetime | date:'dd/MM/yyyy HH:mm' }}</small>
           </div>
         </ng-template>
 
-        <!-- Teams VS -->
         <div class="match-teams">
           <div class="team">
-            <img [src]="match.homeTeam.logoUrl || 'assets/fallback.png'" alt="logo" width="50" height="50">
+            <img [src]="match.homeTeam.logoUrl || 'assets/fallback.png'" alt="logo" width="40" height="40">
             <p>{{ match.homeTeam.name }}</p>
           </div>
           <div class="vs">X</div>
           <div class="team">
-            <img [src]="match.awayTeam.logoUrl || 'assets/fallback.png'" alt="logo" width="50" height="50">
+            <img [src]="match.awayTeam.logoUrl || 'assets/fallback.png'" alt="logo" width="40" height="40">
             <p>{{ match.awayTeam.name }}</p>
           </div>
         </div>
-
         <p class="stadium">📍 {{ match.stadium }}</p>
 
-        <nz-divider nzText="Transmissões" nzOrientation="left"></nz-divider>
-
-        <!-- Broadcast Tags -->
-        <div class="broadcasts">
-          <span *ngIf="match.broadcasts.length === 0" style="color: gray; font-size: 12px;">
-            Sem transmissão confirmada
-          </span>
+        <!-- Transmissões / Broadcasts -->
+        <nz-divider nzText="Transmissões" nzOrientation="left" *ngIf="match.broadcasts && match.broadcasts.length > 0"></nz-divider>
+        <div class="broadcasts" *ngIf="match.broadcasts">
           <a *ngFor="let b of match.broadcasts" [href]="b.platformUrl" target="_blank">
             <nz-tag [nzColor]="b.isFree ? 'success' : 'processing'">
               {{ b.platformName }} {{ b.isFree ? '(Grátis)' : '' }}
             </nz-tag>
           </a>
         </div>
-      </nz-card>
 
+      </nz-card>
     </div>
   </div>
 
   <ng-template #noData>
-    <nz-empty nzNotFoundContent="Nenhum jogo carregado. Verifique a API."></nz-empty>
+    <nz-empty nzNotFoundContent="Nenhum jogo encontrado para esta competição."></nz-empty>
   </ng-template>
 </div>
