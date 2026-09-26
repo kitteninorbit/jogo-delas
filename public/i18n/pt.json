@@ -1,0 +1,34 @@
+{
+  "layout": {
+    "logoAlt": "Logo JogoDelas",
+    "mainNavAria": "Navegação Principal",
+    "navCompetitions": "Competições",
+    "navMatches": "Jogos",
+    "navTeams": "Times",
+    "mobileNavAria": "Abrir menu mobile",
+    "themeToggle": "Alternar tema",
+    "switchToLightTheme": "Mudar para tema claro",
+    "switchToDarkTheme": "Mudar para tema escuro",
+    "langAlt": "Alterar idioma",
+    "changeLanguage": "Alterar idioma",
+    "footerRights": "© 2026 JogoDelas. Todos os direitos reservados.",
+    "footerGithub": "GitHub",
+    "footerLinkedin": "LinkedIn"
+  },
+  "matches": {
+    "title": "Jogos e Transmissões",
+    "allCompetitions": "Todas as Competições",
+    "broadcasts": "Transmissões",
+    "free": "(Grátis)",
+    "noData": "Nenhum jogo encontrado para esta competição."
+  },
+  "teams": {
+    "title": "Acompanhe os Times",
+    "noData": "Nenhum time encontrado."
+  },
+  "competitions": {
+    "title": "Torneios e Competições",
+    "cardDescription": "Acompanhe os jogos e transmissões desta competição na aba de Jogos.",
+    "noData": "Nenhuma competição encontrada."
+  }
+}

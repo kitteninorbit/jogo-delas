@@ -5,10 +5,17 @@ import { Competition } from '../../core/models';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-competitions',
-  imports: [CommonModule, NzCardModule, NzGridModule, NzEmptyModule],
+  imports: [
+    CommonModule,
+    NzCardModule,
+    NzGridModule,
+    NzEmptyModule,
+    TranslatePipe,
+  ],
   templateUrl: './competitions.html',
   styleUrl: './competitions.less'
 })

@@ -1,5 +1,5 @@
 <div class="teams-container">
-  <h2>Acompanhe os Times</h2>
+  <h2>{{ 'teams.title' | translate }}</h2>
   <div nz-row [nzGutter]="[16, 16]" *ngIf="teams.length > 0; else noData">
     <div nz-col [nzXs]="12" [nzSm]="8" [nzMd]="6" [nzLg]="4" *ngFor="let team of teams">
       <nz-card nzHoverable class="team-card">
@@ -9,6 +9,6 @@
     </div>
   </div>
   <ng-template #noData>
-    <nz-empty nzNotFoundContent="Nenhum time encontrado."></nz-empty>
+    <nz-empty [nzNotFoundContent]="'teams.noData' | translate"></nz-empty>
   </ng-template>
 </div>

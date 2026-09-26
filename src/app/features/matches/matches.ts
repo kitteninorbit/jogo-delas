@@ -10,12 +10,20 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-matches',
   imports: [
-    CommonModule, FormsModule, NzCardModule, NzGridModule,
-    NzTagModule, NzDividerModule, NzEmptyModule, NzSelectModule
+    CommonModule,
+    FormsModule,
+    NzCardModule,
+    NzGridModule,
+    NzTagModule,
+    NzDividerModule,
+    NzEmptyModule,
+    NzSelectModule,
+    TranslatePipe
   ],
   templateUrl: './matches.html',
   styleUrl: './matches.less'

@@ -1,11 +1,11 @@
 <div class="matches-container">
   <div class="filter-header">
-    <h2>Jogos e Transmissões</h2>
+    <h2>{{ 'matches.title' | translate }}</h2>
     <nz-select
       [(ngModel)]="selectedCompetitionId"
       (ngModelChange)="filterMatches()"
       class="competition-filter">
-      <nz-option nzValue="ALL" nzLabel="Todas as Competições"></nz-option>
+      <nz-option nzValue="ALL" [nzLabel]="'matches.allCompetitions' | translate"></nz-option>
       <nz-option *ngFor="let comp of competitions" [nzValue]="comp.id" [nzLabel]="comp.name"></nz-option>
     </nz-select>
   </div>
@@ -37,11 +37,11 @@
         <p class="stadium">📍 {{ match.stadium }}</p>
 
         <!-- Transmissões / Broadcasts -->
-        <nz-divider nzText="Transmissões" nzOrientation="left" *ngIf="match.broadcasts && match.broadcasts.length > 0"></nz-divider>
+        <nz-divider [nzText]="'matches.broadcasts' | translate" nzOrientation="left" *ngIf="match.broadcasts && match.broadcasts.length > 0"></nz-divider>
         <div class="broadcasts" *ngIf="match.broadcasts">
           <a *ngFor="let b of match.broadcasts" [href]="b.platformUrl" target="_blank">
             <nz-tag [nzColor]="b.isFree ? 'success' : 'processing'">
-              {{ b.platformName }} {{ b.isFree ? '(Grátis)' : '' }}
+              {{ b.platformName }} {{ b.isFree ? ('matches.free' | translate) : '' }}
             </nz-tag>
           </a>
         </div>
@@ -51,6 +51,6 @@
   </div>
 
   <ng-template #noData>
-    <nz-empty nzNotFoundContent="Nenhum jogo encontrado para esta competição."></nz-empty>
+    <nz-empty [nzNotFoundContent]="'matches.noData' | translate"></nz-empty>
   </ng-template>
 </div>

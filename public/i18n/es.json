@@ -1,0 +1,34 @@
+{
+  "layout": {
+    "logoAlt": "Logo JogoDelas",
+    "mainNavAria": "Navegación Principal",
+    "navCompetitions": "Competiciones",
+    "navMatches": "Partidos",
+    "navTeams": "Equipos",
+    "mobileNavAria": "Abrir menú móvil",
+    "themeToggle": "Cambiar tema",
+    "switchToLightTheme": "Cambiar a tema claro",
+    "switchToDarkTheme": "Cambiar a tema oscuro",
+    "langAlt": "Cambiar idioma",
+    "changeLanguage": "Cambiar idioma",
+    "footerRights": "© 2026 JogoDelas. Todos los derechos reservados.",
+    "footerGithub": "GitHub",
+    "footerLinkedin": "LinkedIn"
+  },
+  "matches": {
+    "title": "Partidos y Transmisiones",
+    "allCompetitions": "Todas las Competiciones",
+    "broadcasts": "Transmisiones",
+    "free": "(Gratis)",
+    "noData": "No se encontraron partidos para esta competición."
+  },
+  "teams": {
+    "title": "Sigue a los Equipos",
+    "noData": "No se encontraron equipos."
+  },
+  "competitions": {
+    "title": "Torneos y Competiciones",
+    "cardDescription": "Sigue los partidos y transmisiones de esta competición en la pestaña de Partidos.",
+    "noData": "No se encontraron competiciones."
+  }
+}
