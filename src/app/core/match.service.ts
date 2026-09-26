@@ -7,7 +7,7 @@ import { Match } from './models';
   providedIn: 'root'
 })
 export class MatchService {
-  private apiUrl = 'http://localhost:8080/api/matches';
+  private apiUrl = 'https://soccer-api-1-fuwk.onrender.com/api/matches';
   private http = inject(HttpClient);
 
   getMatches(): Observable<Match[]> {

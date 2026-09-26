@@ -5,7 +5,7 @@ import { Competition } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class CompetitionService {
-  private apiUrl = 'http://localhost:8080/api/competitions';
+  private apiUrl = 'https://soccer-api-1-fuwk.onrender.com/api/competitions';
   private http = inject(HttpClient);
 
   getCompetitions(): Observable<Competition[]> {
