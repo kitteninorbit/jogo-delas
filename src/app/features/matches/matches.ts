@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { MatchService } from '../../core/match.service';
 import { CompetitionService } from '../../core/competition.service';
 import { Match, Competition } from '../../core/models';
@@ -36,6 +37,7 @@ export class Matches implements OnInit {
 
   private matchService = inject(MatchService);
   private competitionService = inject(CompetitionService);
+  private route = inject(ActivatedRoute);
 
   ngOnInit() {
     this.competitionService.getCompetitions().subscribe(data => this.competitions = data);
@@ -44,9 +46,22 @@ export class Matches implements OnInit {
       next: (data) => {
         this.allMatches = data;
         this.displayedMatches = data;
+        this.applyQueryParamFilter();
       },
       error: (err) => console.error('Error fetching matches:', err)
     });
+
+    this.route.queryParams.subscribe(params => {
+      const compParam = params['comp'];
+      this.selectedCompetitionId = compParam ? Number(compParam) : 'ALL';
+      this.filterMatches();
+    });
+  }
+
+  private applyQueryParamFilter() {
+    const compParam = this.route.snapshot.queryParamMap.get('comp');
+    this.selectedCompetitionId = compParam ? Number(compParam) : 'ALL';
+    this.filterMatches();
   }
 
   filterMatches() {

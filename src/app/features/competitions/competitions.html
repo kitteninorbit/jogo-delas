@@ -2,7 +2,12 @@
   <h2>{{ 'competitions.title' | translate }}</h2>
   <div nz-row [nzGutter]="[16, 16]" *ngIf="competitions.length > 0; else noData">
     <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" *ngFor="let comp of competitions">
-      <nz-card nzHoverable class="competition-card">
+      <nz-card
+        nzHoverable
+        class="competition-card"
+        (click)="goToMatches(comp.id)"
+        style="cursor: pointer;"
+      >
         <h3>🏆 {{ comp.name }}</h3>
         <p>{{ 'competitions.cardDescription' | translate }}</p>
       </nz-card>
