@@ -1,0 +1,55 @@
+<div class="container">
+  <h1 nz-typography>Onde Passa Futebol Feminino</h1>
+  <p nz-typography>Acompanhe os jogos e transmissões da Libertadores Feminina 2026</p>
+  <nz-divider></nz-divider>
+
+  <!-- Responsive Grid -->
+  <div nz-row [nzGutter]="[16, 16]" *ngIf="matches.length > 0; else noData">
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="8" *ngFor="let match of matches">
+
+      <!-- Match Card -->
+      <nz-card [nzTitle]="cardTitle" nzHoverable>
+        <ng-template #cardTitle>
+          <div class="card-header">
+            <span>{{ match.stage }}</span>
+            <small>{{ match.matchDatetime | date:'dd/MM/yyyy HH:mm' }}</small>
+          </div>
+        </ng-template>
+
+        <!-- Teams VS -->
+        <div class="match-teams">
+          <div class="team">
+            <img [src]="match.homeTeam.logoUrl || 'assets/fallback.png'" alt="logo" width="50" height="50">
+            <p>{{ match.homeTeam.name }}</p>
+          </div>
+          <div class="vs">X</div>
+          <div class="team">
+            <img [src]="match.awayTeam.logoUrl || 'assets/fallback.png'" alt="logo" width="50" height="50">
+            <p>{{ match.awayTeam.name }}</p>
+          </div>
+        </div>
+
+        <p class="stadium">📍 {{ match.stadium }}</p>
+
+        <nz-divider nzText="Transmissões" nzOrientation="left"></nz-divider>
+
+        <!-- Broadcast Tags -->
+        <div class="broadcasts">
+          <span *ngIf="match.broadcasts.length === 0" style="color: gray; font-size: 12px;">
+            Sem transmissão confirmada
+          </span>
+          <a *ngFor="let b of match.broadcasts" [href]="b.platformUrl" target="_blank">
+            <nz-tag [nzColor]="b.isFree ? 'success' : 'processing'">
+              {{ b.platformName }} {{ b.isFree ? '(Grátis)' : '' }}
+            </nz-tag>
+          </a>
+        </div>
+      </nz-card>
+
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <nz-empty nzNotFoundContent="Nenhum jogo carregado. Verifique a API."></nz-empty>
+  </ng-template>
+</div>
