@@ -24,3 +24,15 @@ body {
   background-color: var(--jogodelas-bg);
   color: var(--jogodelas-text-primary);
 }
+
+/* Override NG-ZORRO dark menu active state */
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected {
+  background-color: transparent !important;
+  color: var(--jogodelas-primary-color) !important;
+  border-bottom: 2px solid var(--jogodelas-primary-color) !important;
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover {
+  background-color: transparent !important;
+  color: var(--jogodelas-primary-color-hover) !important;
+}

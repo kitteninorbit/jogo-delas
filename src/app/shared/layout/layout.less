@@ -22,7 +22,7 @@ nz-content {
   z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   background-color: var(--jogodelas-surface);
   padding: 0 40px;
   box-shadow: 0 2px 8px var(--jogodelas-header-shadow-color);
@@ -30,8 +30,8 @@ nz-content {
 
 .logo {
   display: flex;
-  align-items: left;
-  gap: 10px;
+  align-items: center;
+  flex: 1;
 }
 
 .logo-link {
@@ -56,17 +56,22 @@ nz-content {
 .nav {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .header-nav {
   border-bottom: none;
   line-height: 64px;
+  background-color: transparent !important;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
+  flex: 1;
 }
 
 .theme-switch {
@@ -162,11 +167,6 @@ nz-content {
   .header {
     padding: 0 16px;
     justify-content: space-between;
-  }
-  .header-center {
-    position: static;
-    left: auto;
-    transform: none;
   }
   .nav {
     display: none;
