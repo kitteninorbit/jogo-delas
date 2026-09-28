@@ -1,7 +1,7 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { pt_BR, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { provideNzDateFnsAdapter } from 'ng-zorro-antd/core/time';
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideClientHydration(),
+    provideClientHydration(withEventReplay()),
     provideHttpClient(),
     provideNzI18n(pt_BR),
     provideNzDateFnsAdapter(),

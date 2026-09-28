@@ -1,7 +1,7 @@
 <div class="competitions-container">
   <h2>{{ 'competitions.title' | translate }}</h2>
-  <div nz-row [nzGutter]="[16, 16]" *ngIf="competitions.length > 0; else noData">
-    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" *ngFor="let comp of competitions">
+  <div nz-row [nzGutter]="[16, 16]" *ngIf="competitions().length > 0; else noData">
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" *ngFor="let comp of competitions()">
       <nz-card
         nzHoverable
         class="competition-card"

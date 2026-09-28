@@ -1,5 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TeamService } from '../../core/team.service';
 import { Team } from '../../core/models';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -14,26 +15,27 @@ import { TranslatePipe } from '@ngx-translate/core';
     NzCardModule,
     NzGridModule,
     NzEmptyModule,
-    TranslatePipe],
+    TranslatePipe,
+  ],
   templateUrl: './teams.html',
   styleUrl: './teams.less'
 })
-export class Teams implements OnInit {
-  teams: Team[] = [];
-  private teamService = inject(TeamService);
 
-  ngOnInit() {
-    this.teamService.getTeams().subscribe({
-      next: (data) => {
-        this.teams = data.sort((a, b) => a.name.localeCompare(b.name));
-      },
-      error: (err) => console.error('Error fetching teams:', err)
-    });
+export class Teams {
+  private teamService = inject(TeamService);
+  teams = signal<Team[]>([]);
+
+  constructor() {
+    this.teamService.getTeams()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (data) =>
+          this.teams.set([...data].sort((a, b) => a.name.localeCompare(b.name))),
+        error: (err) => console.error('Error fetching teams:', err)
+      });
   }
 
   goToInstagram(url?: string) {
-    if (url) {
-      window.open(url, '_blank');
-    }
+    if (url) window.open(url, '_blank');
   }
 }

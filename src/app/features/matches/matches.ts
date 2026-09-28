@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 import { MatchService } from '../../core/match.service';
 import { CompetitionService } from '../../core/competition.service';
 import { Match, Competition } from '../../core/models';
-import { FormsModule } from '@angular/forms';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTagModule } from 'ng-zorro-antd/tag';
@@ -24,51 +25,47 @@ import { TranslatePipe } from '@ngx-translate/core';
     NzDividerModule,
     NzEmptyModule,
     NzSelectModule,
-    TranslatePipe
+    TranslatePipe,
   ],
   templateUrl: './matches.html',
   styleUrl: './matches.less'
 })
-export class Matches implements OnInit {
-  allMatches: Match[] = [];
-  displayedMatches: Match[] = [];
-  competitions: Competition[] = [];
-  selectedCompetitionId: number | 'ALL' = 'ALL';
 
+export class Matches {
   private matchService = inject(MatchService);
   private competitionService = inject(CompetitionService);
   private route = inject(ActivatedRoute);
 
-  ngOnInit() {
-    this.competitionService.getCompetitions().subscribe(data => this.competitions = data);
+  allMatches = signal<Match[]>([]);
+  competitions = signal<Competition[]>([]);
+  selectedCompetitionId = signal<number | 'ALL'>('ALL');
 
-    this.matchService.getMatches().subscribe({
-      next: (data) => {
-        this.allMatches = data;
-        this.displayedMatches = data;
-        this.applyQueryParamFilter();
-      },
-      error: (err) => console.error('Error fetching matches:', err)
-    });
+  displayedMatches = computed(() => {
+    const id = this.selectedCompetitionId();
+    const all = this.allMatches();
+    return id === 'ALL' ? all : all.filter(m => m.competition.id === id);
+  });
 
-    this.route.queryParams.subscribe(params => {
-      const compParam = params['comp'];
-      this.selectedCompetitionId = compParam ? Number(compParam) : 'ALL';
-      this.filterMatches();
-    });
-  }
+  constructor() {
+    this.competitionService.getCompetitions()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (data) => this.competitions.set(data),
+        error: (err) => console.error('Error fetching competitions:', err)
+      });
 
-  private applyQueryParamFilter() {
-    const compParam = this.route.snapshot.queryParamMap.get('comp');
-    this.selectedCompetitionId = compParam ? Number(compParam) : 'ALL';
-    this.filterMatches();
-  }
+    this.matchService.getMatches()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (data) => this.allMatches.set(data),
+        error: (err) => console.error('Error fetching matches:', err)
+      });
 
-  filterMatches() {
-    if (this.selectedCompetitionId === 'ALL') {
-      this.displayedMatches = this.allMatches;
-    } else {
-      this.displayedMatches = this.allMatches.filter(m => m.competition.id === this.selectedCompetitionId);
-    }
+    this.route.queryParamMap
+      .pipe(takeUntilDestroyed())
+      .subscribe(params => {
+        const comp = params.get('comp');
+        this.selectedCompetitionId.set(comp ? Number(comp) : 'ALL');
+      });
   }
 }

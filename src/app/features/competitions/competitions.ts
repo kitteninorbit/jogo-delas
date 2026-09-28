@@ -1,6 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CompetitionService } from '../../core/competition.service';
 import { Competition } from '../../core/models';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -20,16 +21,19 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './competitions.html',
   styleUrl: './competitions.less'
 })
-export class Competitions implements OnInit {
-  competitions: Competition[] = [];
+
+export class Competitions {
   private competitionService = inject(CompetitionService);
   private router = inject(Router);
+  competitions = signal<Competition[]>([]);
 
-  ngOnInit() {
-    this.competitionService.getCompetitions().subscribe({
-      next: (data) => this.competitions = data,
-      error: (err) => console.error('Error fetching competitions:', err)
-    });
+  constructor() {
+    this.competitionService.getCompetitions()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (data) => this.competitions.set(data),
+        error: (err) => console.error('Error fetching competitions:', err)
+      });
   }
 
   goToMatches(competitionId: number) {
